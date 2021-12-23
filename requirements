@@ -1,0 +1,23 @@
+librosa==0.6.3
+numpy
+pandas
+soundfile==0.9.0
+wave
+sklearn
+tqdm==4.28.1
+matplotlib==2.2.3
+pyaudio==0.2.11
+tensorflow==2.5.2
+ffmpeg
+
+
+
+***************
+
+* to install matplotlib==2.2.3 :
+' brew install pkg-config '
+' brew install freetype
+' brew install libpng '
+
+* to install pip install ffmpeg-python:
+' pip install ffmpeg-python '
