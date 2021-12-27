@@ -167,7 +167,7 @@ if __name__ == "__main__":
             # audio_file = None
             # path = None
             with col1:
-                # TO CHECK!!!!!!!!! I MEAN, CHECK THE EXTENSION TYPE in the line below. WAV ONLY OR MP3 & OGG(????) ALSO FINE ?
+                # TO CHECK!!!!!!!!! I MEAN, CHECK THE EXTENSION TYPE in the line below. WAV ONLY? OR MP3 & OGG(????) ALSO FINE ?
                 audio_file = st.file_uploader("Upload audio file", type=['wav'])
                 if audio_file is not None:
                     pass
