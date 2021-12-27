@@ -1,18 +1,16 @@
 import pyaudio
-import os
 import wave
 import pickle
 from sys import byteorder
 from array import array
 from struct import pack
-from sklearn.neural_network import MLPClassifier
 import streamlit as st
 import plot_data
 
 from utils import extract_feature
 
 THRESHOLD = 500
-CHUNK_SIZE = 1024
+CHUNK_SIZE = 560
 FORMAT = pyaudio.paInt16  # Sound is stored in binary, as is everything related to computers. In order to know where an integer starts and ends, there are different methods used. PyAudio uses a fixed size of bits.
 # paInt16 is basically a signed 16-bit binary string.
 RATE = 16000
