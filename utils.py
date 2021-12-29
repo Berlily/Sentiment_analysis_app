@@ -63,9 +63,11 @@ int2emotion = {
 
 # we allow only these emotions ( feel free to tune this on your need )
 AVAILABLE_EMOTIONS = {
+    "sad",
     "angry",
-    "happy"
-
+    "happy",
+    "fearful",
+    "surprised"
 }
 
 
