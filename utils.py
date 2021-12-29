@@ -7,7 +7,7 @@ from sklearn.model_selection import train_test_split  # for splitting training a
 import streamlit as st
 
 
-@st.cache
+
 def extract_feature(file_name, **kwargs):
     """
     Extract feature from audio file `file_name`
