@@ -1,0 +1,14 @@
+# created by virtualenv automatically
+# visit this if you need help
+# https://devacademy.ru/article/ignorirovanie-faylov-i-katalogov-v-git
+
+# ignore system files
+.DS_Store
+
+# ignore logs
+logs
+*.log
+
+# ignore other files
+test.wav
+data/

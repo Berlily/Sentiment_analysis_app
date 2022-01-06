@@ -4,8 +4,6 @@ import librosa  # to extract speech features
 import os  # to work with files
 import glob  # used to return all file paths that match a specific pattern
 from sklearn.model_selection import train_test_split  # for splitting training and testing
-import streamlit as st
-
 
 
 def extract_feature(file_name, **kwargs):
@@ -63,9 +61,11 @@ int2emotion = {
 
 # we allow only these emotions ( feel free to tune this on your need )
 AVAILABLE_EMOTIONS = {
+    "sad",
     "angry",
-    "happy"
-
+    "happy",
+    "fearful",
+    "surprised"
 }
 
 
