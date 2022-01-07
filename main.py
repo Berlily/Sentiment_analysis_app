@@ -11,6 +11,7 @@ from utils import extract_feature
 
 THRESHOLD = 500
 CHUNK_SIZE = 1024
+
 FORMAT = pyaudio.paInt16  # Sound is stored in binary, as is everything related to computers. In order to know where an integer starts and ends, there are different methods used. PyAudio uses a fixed size of bits.
 # paInt16 is basically a signed 16-bit binary string.
 RATE = 16000
