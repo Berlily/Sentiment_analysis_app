@@ -6,12 +6,12 @@ from array import array
 from struct import pack
 import streamlit as st
 import plot_data
+import os
 
 from utils import extract_feature
 
 THRESHOLD = 500
 CHUNK_SIZE = 1024
-
 FORMAT = pyaudio.paInt16  # Sound is stored in binary, as is everything related to computers. In order to know where an integer starts and ends, there are different methods used. PyAudio uses a fixed size of bits.
 # paInt16 is basically a signed 16-bit binary string.
 RATE = 16000
@@ -117,11 +117,23 @@ def record_to_file(path):
     "Records from the microphone and outputs the resulting data to 'path'"
     sample_width, data = record()
     data = pack('<' + ('h'*len(data)), *data)
-    with wave.open(path, 'wb') as wf:
-        wf.setnchannels(1)
-        wf.setsampwidth(sample_width)
-        wf.setframerate(RATE)
-        wf.writeframes(data)
+
+    wf = wave.open(path, 'wb')
+    wf.setnchannels(1)
+    wf.setsampwidth(sample_width)
+    wf.setframerate(RATE)
+    wf.writeframes(data)
+    wf.close()
+
+def save_audio(audio_file):
+    if not os.path.exists("audio"):
+        os.makedirs("audio")
+    path = os.path.join("audio", "tmp.wav")
+
+    with open(path, "wb") as outfile:
+        bytes_data = audio_file.read()
+        outfile.write(bytes_data)
+    return path
 
 
 if __name__ == "__main__":
@@ -159,7 +171,7 @@ if __name__ == "__main__":
             st.header("Result")
             plot_data.plot_text_pie_chart(review)
 
-    else:  # if a user chooses audio in the selectbox
+    if add_selectbox == "Audio":  # if a user chooses audio in the selectbox
 
         with st.container():
             col1, col2 = st.columns(2)
@@ -168,30 +180,17 @@ if __name__ == "__main__":
             with col1:
                 # TO CHECK!!!!!!!!! I MEAN, CHECK THE EXTENSION TYPE in the line below. WAV ONLY? OR MP3 & OGG(????) ALSO FINE ?
                 audio_file = st.file_uploader("Upload audio file", type=['wav'])
-                if audio_file is not None:
-                    pass
-                    # if not os.path.exists("audio"):
-                    #     os.makedirs("audio")
-                    # path = os.path.join("audio", audio_file.name)
-                    # if_save_audio = save_audio(audio_file)
-                    # if if_save_audio == 1:
-                    #     st.warning("File size is too large. Try another file.")
-                    # elif if_save_audio == 0:
-                    #     # extract features
-                    #     # display audio
-                    #     st.audio(audio_file, format='audio/wav', start_time=0)
-                    #     try:
-                    #         wav, sr = librosa.load(path, sr=44100)
-                    #         Xdb = get_melspec(path)[1]
-                    #         mfccs = librosa.feature.mfcc(wav, sr=sr)
-                    #         # # display audio
-                    #         # st.audio(audio_file, format='audio/wav', start_time=0)
-                    #     except Exception as e:
-                    #         audio_file = None
-                    #         st.error(f"Error {e} - wrong format of the file. Try another .wav file.")
-                    # else:
-                    #     st.error("Unknown error")
-                else:
+                if audio_file is not None:  # if user chose to upload a file from their computer
+                    path = save_audio(audio_file)
+
+                    features = extract_feature(path, mfcc=True, chroma=True, mel=True).reshape(1, -1)
+
+                    result = model.predict(features)[0]
+                    # show the result !
+                    st.header("Result")
+                    st.write(result)
+
+                else:  # if user chose to record their own voice
                     st.write('')
                     if st.button("Test my own voice!"):
                         filename = "test.wav"
@@ -204,6 +203,12 @@ if __name__ == "__main__":
                         # show the result !
                         st.header("Result")
                         st.write(result)
+
+
+
+
+
+
 
             # with col2:
             #     if audio_file is not None:
