@@ -1,3 +1,4 @@
+from datetime import datetime, timedelta
 import pyaudio
 import wave
 import pickle
@@ -85,7 +86,13 @@ def record():
 
     r = array('h')
 
+    start_time = datetime.now()
     while 1:
+        current_time = datetime.now()
+        delta_time = current_time - start_time
+        if delta_time > timedelta(seconds=10):
+            break
+
         # little endian, signed short
         snd_data = array('h', stream.read(CHUNK_SIZE))
         if byteorder == 'big':
@@ -193,16 +200,20 @@ if __name__ == "__main__":
                 else:  # if user chose to record their own voice
                     st.write('')
                     if st.button("Test my own voice!"):
+                        st.header('')
+                        st.write('')
                         filename = "test.wav"
                         # record the file (start talking)
                         record_to_file(filename)
                         # extract features and reshape it
                         features = extract_feature(filename, mfcc=True, chroma=True, mel=True).reshape(1, -1)
                         # predict
+                        print("features", features)
                         result = model.predict(features)[0]
+                        print("result", result)
                         # show the result !
                         st.header("Result")
-                        st.write(result)
+                        st.write(result, datetime.now())
 
 
 
