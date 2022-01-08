@@ -213,7 +213,9 @@ if __name__ == "__main__":
                         print("result", result)
                         # show the result !
                         st.header("Result")
-                        st.write(result, datetime.now())
+                        st.write(result)
+
+                        #st.write(result, datetime.now())
 
 
 
