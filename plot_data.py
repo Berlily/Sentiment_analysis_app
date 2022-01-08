@@ -36,7 +36,6 @@ def plot_text_pie_chart(text):
     st.pyplot(fig)
 
 
-
 if __name__ == "__main__":
     plot_text_pie_chart('Do you consider the forms of introduction, and the stress that is laid on them, as nonsense? I cannot quite agree with you there. What say you, Mary? for you are a young lady of deep reflection, I know, and read great books and make extracts.')
 
