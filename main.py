@@ -187,8 +187,10 @@ if __name__ == "__main__":
             with col1:
                 # TO CHECK!!!!!!!!! I MEAN, CHECK THE EXTENSION TYPE in the line below. WAV ONLY? OR MP3 & OGG(????) ALSO FINE ?
                 audio_file = st.file_uploader("Upload audio file", type=['wav'])
-                if audio_file is not None:  # if user chose to upload a file from their computer
+                if audio_file is not None:  # if user chooses to upload a file from their computer
                     path = save_audio(audio_file)
+                    # show the audio player
+                    st.audio(audio_file)
 
                     features = extract_feature(path, mfcc=True, chroma=True, mel=True).reshape(1, -1)
 
@@ -197,7 +199,7 @@ if __name__ == "__main__":
                     st.header("Result")
                     st.write(result)
 
-                else:  # if user chose to record their own voice
+                else:  # if user chooses to record their own voice
                     st.write('')
                     if st.button("Test my own voice!"):
                         st.header('')
