@@ -28,21 +28,23 @@ def is_silent(snd_data):
 def normalize(snd_data):
     "Average the volume out"
     MAXIMUM = 16384
-    times = float(MAXIMUM)/max(abs(i) for i in snd_data)
+    times = float(MAXIMUM) / max(abs(i) for i in snd_data)
 
     r = array('h')  # 'h' means signed shorts in C (and int in Python) with minimum size in bytes:2
     for i in snd_data:
-        r.append(int(i*times))
+        r.append(int(i * times))
     return r
+
 
 def trim(snd_data):
     "Trim the blank spots at the start and end"
+
     def _trim(snd_data):
         snd_started = False
         r = array('h')
 
         for i in snd_data:
-            if not snd_started and abs(i)>THRESHOLD:
+            if not snd_started and abs(i) > THRESHOLD:
                 snd_started = True
                 r.append(i)
 
@@ -59,12 +61,14 @@ def trim(snd_data):
     snd_data.reverse()
     return snd_data
 
+
 def add_silence(snd_data, seconds):
     "Add silence to the start and end of 'snd_data' of length 'seconds' (float)"
-    r = array('h', [0 for i in range(int(seconds*RATE))])
+    r = array('h', [0 for i in range(int(seconds * RATE))])
     r.extend(snd_data)
-    r.extend([0 for i in range(int(seconds*RATE))])
+    r.extend([0 for i in range(int(seconds * RATE))])
     return r
+
 
 def record():
     """
@@ -78,8 +82,8 @@ def record():
     """
     p = pyaudio.PyAudio()
     stream = p.open(format=FORMAT, channels=1, rate=RATE,
-        input=True, output=True,
-        frames_per_buffer=CHUNK_SIZE)
+                    input=True, output=True,
+                    frames_per_buffer=CHUNK_SIZE)
 
     num_silent = 0
     snd_started = False
@@ -123,7 +127,7 @@ def record():
 def record_to_file(path):
     "Records from the microphone and outputs the resulting data to 'path'"
     sample_width, data = record()
-    data = pack('<' + ('h'*len(data)), *data)
+    data = pack('<' + ('h' * len(data)), *data)
 
     wf = wave.open(path, 'wb')
     wf.setnchannels(1)
@@ -131,6 +135,7 @@ def record_to_file(path):
     wf.setframerate(RATE)
     wf.writeframes(data)
     wf.close()
+
 
 def save_audio(audio_file):
     if not os.path.exists("audio"):
@@ -165,7 +170,7 @@ if __name__ == "__main__":
     add_selectbox = st.sidebar.selectbox(
         "You want to analyse...",
         ("Audio", "Text"))
-
+    # ///////////////////////////////////////// Text part /////////////////////////////////////
     if add_selectbox == "Text":
         # Declare a form to analyse text
         form = st.form(key="my_form")
@@ -173,11 +178,18 @@ if __name__ == "__main__":
         submit = form.form_submit_button(label="Make Prediction")
 
         if submit:
-            # make prediction from the input text
-            # Display results
-            st.header("Result")
-            plot_data.plot_text_pie_chart(review)
+            # let's make restriction in a 70-symbols minimum message in order to fix the following error: "ValueError: cannot convert float NaN to integer"
 
+            number_of_words = len(review)
+
+            if number_of_words < 70:
+                st.write('The message is too short...')
+            else:
+                # make prediction from the input text
+                # Display results
+                st.header("Result")
+                plot_data.plot_text_pie_chart(review)
+    # ///////////////////////////////////////// Audio part /////////////////////////////////////
     if add_selectbox == "Audio":  # if a user chooses audio in the selectbox
 
         with st.container():
@@ -217,13 +229,7 @@ if __name__ == "__main__":
                         st.header("Result")
                         st.write(result)
 
-                        #st.write(result, datetime.now())
-
-
-
-
-
-
+                        # st.write(result, datetime.now())
 
             # with col2:
             #     if audio_file is not None:
