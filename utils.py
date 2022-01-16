@@ -59,7 +59,7 @@ int2emotion = {
     "08": "surprised"
 }
 
-# we allow only these emotions ( feel free to tune this on your need )
+# we allow only these emotions
 AVAILABLE_EMOTIONS = {
     "sad",
     "angry",

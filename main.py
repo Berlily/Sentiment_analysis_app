@@ -222,7 +222,7 @@ if __name__ == "__main__":
                         # extract features and reshape it
                         features = extract_feature(filename, mfcc=True, chroma=True, mel=True).reshape(1, -1)
                         # predict
-                        print("features", features)
+                        # print("features", features)
                         result = model.predict(features)[0]
                         print("result", result)
                         # show the result !
