@@ -19,5 +19,5 @@ ffmpeg
 ' brew install freetype
 ' brew install libpng '
 
-* to install pip install ffmpeg-python:
+* to install ffmpeg-python:
 ' pip install ffmpeg-python '
