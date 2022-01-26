@@ -7,7 +7,9 @@ streamlit run main.py
 User interface was designed with Streamlit library.
 Look, how it works...
 
-https://user-images.githubusercontent.com/72090028/151056875-926312cd-26a8-44c7-8728-61de8e33f0ca.mp4
 
 
+
+
+https://user-images.githubusercontent.com/72090028/151253673-3c4e54bc-fd21-44eb-aafd-07ea03424433.mp4
 
