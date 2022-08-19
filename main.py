@@ -231,22 +231,3 @@ if __name__ == "__main__":
 
                         # st.write(result, datetime.now())
 
-            # with col2:
-            #     if audio_file is not None:
-            #         fig = plt.figure(figsize=(10, 2))
-            #         fig.set_facecolor('#d1d1e0')
-            #         plt.title("Wave-form")
-            #         librosa.display.waveplot(wav, sr=44100)
-            #         plt.gca().axes.get_yaxis().set_visible(False)
-            #         plt.gca().axes.get_xaxis().set_visible(False)
-            #         plt.gca().axes.spines["right"].set_visible(False)
-            #         plt.gca().axes.spines["left"].set_visible(False)
-            #         plt.gca().axes.spines["top"].set_visible(False)
-            #         plt.gca().axes.spines["bottom"].set_visible(False)
-            #         plt.gca().axes.set_facecolor('#d1d1e0')
-            #         st.write(fig)
-            #     else:
-            #         pass
-
-# 2. show sample wave
-# st.write(plot_data.show_wave("test.wav"))
