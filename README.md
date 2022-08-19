@@ -5,7 +5,7 @@ streamlit run main.py
 
 
 User interface was designed with Streamlit library.
-Look, how it works...
+Look, how it works!
 
 
 
